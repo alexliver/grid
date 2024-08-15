@@ -3,12 +3,14 @@ import Loading from './loading';
 import {fetchData} from '../lib/data';
 import ReactPaginate from 'react-paginate';
 
-export default function Page({columns, endpoint, filterKey, filterValue, children}) {
+export default function Page({columns, endpoint, children}) {
   const [data, setData] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [pageNum, setPageNum] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
+  const [filterKey, setFilterKey] = useState(null);
+  const [filterValue, setFilterValue] = useState(null);
 
   const updateData = async () => {
     setIsLoading(true);
@@ -85,11 +87,22 @@ export default function Page({columns, endpoint, filterKey, filterValue, childre
     );
   };
 
+  const getFilterComponent = () => {
+    const childrenWithProps = React.Children.map(children, child => {
+      const onChangeFilter = (key, value) => {
+        setFilterKey(key);
+        setFilterValue(value);
+      };
+      return React.cloneElement(child, { filterKey, filterValue, onChangeFilter });
+    });
+    return childrenWithProps;
+  };
+
   return (
     <div>
       {isLoading?<Loading />:null}
       {getPageSizeSelectComponent()}
-      {children}
+      {getFilterComponent()}
       {getTableComponent()}
       {getPagingComponent()}
     </div>

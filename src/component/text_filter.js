@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-export default function TextFilter({column, filterText, onChange}) {
+export default function TextFilter({column, value, onChange}) {
   const [isShown, setIsShown] = useState(false);
+  const [filterText, setFilterText] = useState(null);
+
+  useEffect(() => {
+    setFilterText(value);
+  }, [value]);
 
   const getInputComponent = () => {
     if (!isShown)
       return null;
     const onChangeInput = (event) => {
-      onChange(event.target.value);
+      onChange(column, event.target.value);
+      setFilterText(event.target.value);
     };
     let val = filterText;
     if (filterText === null)
