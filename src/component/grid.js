@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loading from './loading';
+import Search from './search';
 import {fetchData} from '../lib/data';
 import ReactPaginate from 'react-paginate';
 
@@ -11,10 +12,11 @@ export default function Page({columns, endpoint, children}) {
   const [total, setTotal] = useState(0);
   const [filterKey, setFilterKey] = useState(null);
   const [filterValue, setFilterValue] = useState(null);
+  const [searchText, setSearchText] = useState('');
 
   const updateData = async () => {
     setIsLoading(true);
-    const data = await fetchData(endpoint, pageSize, pageNum, filterKey, filterValue);
+    const data = await fetchData(endpoint, pageSize, pageNum, filterKey, filterValue, searchText);
     setData(data[endpoint]);
     setTotal(data.total);
     setIsLoading(false);
@@ -22,7 +24,7 @@ export default function Page({columns, endpoint, children}) {
 
   useEffect(() => {
     updateData();
-  }, [pageNum, pageSize, filterKey, filterValue]);
+  }, [pageNum, pageSize, filterKey, filterValue, searchText]);
 
 
   const getTableHeaderComponent = () => {
@@ -92,16 +94,34 @@ export default function Page({columns, endpoint, children}) {
       const onChangeFilter = (key, value) => {
         setFilterKey(key);
         setFilterValue(value);
+        if (value)
+          setSearchText('');
       };
       return React.cloneElement(child, { filterKey, filterValue, onChangeFilter });
     });
     return childrenWithProps;
   };
 
+  const getSearchComponent = () => {
+    const onChangeSearch = (value) => {
+      setSearchText(value);
+      if (value) {
+        setFilterKey(null);
+        setFilterValue(null);
+      }
+    };
+    return (
+      <div>
+        <Search searchText={searchText} onChange={onChangeSearch} />
+      </div>
+    );
+  };
+
   return (
     <div>
       {isLoading?<Loading />:null}
       {getPageSizeSelectComponent()}
+      {getSearchComponent()}
       {getFilterComponent()}
       {getTableComponent()}
       {getPagingComponent()}
