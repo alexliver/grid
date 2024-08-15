@@ -4,6 +4,7 @@ function App() {
   return (
     <div >
       <Link  to="/users">users</Link>
+      <Link  to="/products">products</Link>
     </div>
   );
 }

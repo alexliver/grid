@@ -3,7 +3,7 @@ import Loading from './loading';
 import {fetchData} from '../lib/data';
 import ReactPaginate from 'react-paginate';
 
-export default function Page({columns, endpoint}) {
+export default function Page({columns, endpoint, filterKey, filterValue, children}) {
   const [data, setData] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [pageNum, setPageNum] = useState(0);
@@ -12,7 +12,7 @@ export default function Page({columns, endpoint}) {
 
   const updateData = async () => {
     setIsLoading(true);
-    const data = await fetchData(endpoint, pageSize, pageNum);
+    const data = await fetchData(endpoint, pageSize, pageNum, filterKey, filterValue);
     setData(data[endpoint]);
     setTotal(data.total);
     setIsLoading(false);
@@ -20,7 +20,7 @@ export default function Page({columns, endpoint}) {
 
   useEffect(() => {
     updateData();
-  }, [pageNum, pageSize]);
+  }, [pageNum, pageSize, filterKey, filterValue]);
 
 
   const getTableHeaderComponent = () => {
@@ -89,6 +89,7 @@ export default function Page({columns, endpoint}) {
     <div>
       {isLoading?<Loading />:null}
       {getPageSizeSelectComponent()}
+      {children}
       {getTableComponent()}
       {getPagingComponent()}
     </div>
