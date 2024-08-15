@@ -21,6 +21,8 @@ export default function Page({columns, endpoint, filterAsSearch, children}) {
     setData(data[endpoint]);
     setTotal(data.total);
     setIsLoading(false);
+    if (data[endpoint].length == 0 )
+      setPageNum(0);
   };
 
   useEffect(() => {
@@ -81,6 +83,7 @@ export default function Page({columns, endpoint, filterAsSearch, children}) {
     return (
       <ReactPaginate
         pageCount={totalPages}
+        forcePage={pageNum}
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
         onPageChange={onClickPaging}
