@@ -4,7 +4,7 @@ import Search from './search';
 import {fetchData} from '../lib/data';
 import ReactPaginate from 'react-paginate';
 
-export default function Page({columns, endpoint, children}) {
+export default function Page({columns, endpoint, filterAsSearch, children}) {
   const [data, setData] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [pageNum, setPageNum] = useState(0);
@@ -16,7 +16,8 @@ export default function Page({columns, endpoint, children}) {
 
   const updateData = async () => {
     setIsLoading(true);
-    const data = await fetchData(endpoint, pageSize, pageNum, filterKey, filterValue, searchText);
+    const data = await fetchData(endpoint, pageSize, pageNum, filterKey, filterValue, searchText, 
+        filterAsSearch);
     setData(data[endpoint]);
     setTotal(data.total);
     setIsLoading(false);

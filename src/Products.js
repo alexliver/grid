@@ -21,8 +21,13 @@ function App() {
     "availabilityStatus",
   ];
   return (
-    <Grid columns={columns} endpoint={'products'} >
-      <GridSearch >
+    <Grid columns={columns} endpoint={'products'} filterAsSearch={true}>
+      <GridSearch>
+        <TextFilter column="title" />
+        <TextFilter column="brand" />
+        <SelectFilter column="category">
+          <option value="laptop">laptops</option>
+        </SelectFilter>
       </GridSearch>
     </Grid>
   );
