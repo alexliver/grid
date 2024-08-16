@@ -12,7 +12,7 @@ export default function SelectFilter({column, value, onChange, children}) {
     if (!isShown)
       return null;
     const onChangeInput = (event) => {
-      onChange(column, event.target.value);
+      onChange(event.target.value);
       setFilterText(event.target.value);
     };
     let val = filterText;

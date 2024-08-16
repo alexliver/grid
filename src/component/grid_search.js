@@ -5,8 +5,8 @@ export default function GridSearch({children, filterKey, filterValue, onChangeFi
     let value = filterValue;
     if (filterKey != child.props.column)
       value = null;
-    const onChangeInput = (key, val) => {
-      onChangeFilter(key, val);
+    const onChangeInput = (val) => {
+      onChangeFilter(child.props.column, val);
     };
     return React.cloneElement(child, { onChange: onChangeInput, value });
   });
