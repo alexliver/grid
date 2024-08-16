@@ -24,7 +24,7 @@ export default function Search({searchText, onChange}) {
   return (
     <div>
       <button onClick={onClickToggle}>
-        search
+        &#128269; 
       </button>
       {getInputComponent()}
     </div>

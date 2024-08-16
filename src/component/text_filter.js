@@ -19,7 +19,9 @@ export default function TextFilter({column, value, onChange}) {
     if (filterText === null)
       val = ''
     return (
-      <input type="text" value={val} onChange={onChangeInput} />
+      <div className="filter-input-container">
+        <input type="text" value={val} onChange={onChangeInput} />
+      </div>
     );
   };
 
@@ -28,10 +30,12 @@ export default function TextFilter({column, value, onChange}) {
   };
 
   return (
-    <div>
-      <button onClick={onClickToggle}>
-        {column}
-      </button>
+    <div className="text-search-comp">
+      <div className="toggle-button-wrapper">
+        <button onClick={onClickToggle}>
+          {column}
+        </button>
+      </div>
       {getInputComponent()}
     </div>
   );

@@ -11,6 +11,6 @@ export default function GridSearch({children, filterKey, filterValue, onChangeFi
     return React.cloneElement(child, { onChange: onChangeInput, value });
   });
   return (
-    <div>{childrenWithProps}</div>
+    <div className="filters-comp">{childrenWithProps}</div>
   );
 }

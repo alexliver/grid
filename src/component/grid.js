@@ -55,13 +55,16 @@ export default function Page({children}) {
       setPageSize(event.target.value);
     };
     return (
-      <div>
-        <select value={pageSize} onChange={onChangePageSize}>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-        </select>
+      <div className="page-size-comp">
+        <div className="select-wrapper">
+          <select value={pageSize} onChange={onChangePageSize}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+        Entries
       </div>
     );
   };
@@ -84,15 +87,14 @@ export default function Page({children}) {
   };
 
   const getFilterComponent = () => {
-    const childrenWithProps = React.Children.map(children, child => {
+    return React.Children.map(children, child => {
       return React.cloneElement(child, { filterKey, filterValue, onChangeFilter: updateFilter });
     });
-    return childrenWithProps;
   };
 
   const getSearchComponent = () => {
     return (
-      <div>
+      <div className="search-comp">
         <Search searchText={searchText} onChange={updateSearch} />
       </div>
     );
@@ -101,9 +103,11 @@ export default function Page({children}) {
   return (
     <div>
       {isLoading?<Loading />:null}
-      {getPageSizeSelectComponent()}
-      {getSearchComponent()}
-      {getFilterComponent()}
+      <div className="top-comp">
+        {getPageSizeSelectComponent()}
+        {getSearchComponent()}
+        {getFilterComponent()}
+      </div>
       {getTableComponent()}
       {getPagingComponent()}
     </div>

@@ -5,6 +5,7 @@
   src: url('./font/neutra-text-alt/neutra-text-alt-587261020eccb.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  color: #322625;
 }
 
 @font-face {
@@ -14,11 +15,15 @@
   font-style: normal;
 }
 
-body {
+body,select {
   margin: 0;
   font-family: 'Neutra Text', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: 'Neutra Text', sans-serif;
 }
 
 /* pagination.css */
@@ -126,4 +131,90 @@ thead th, thead td {
 /* Change background color on hover */
 tbody tr:hover {
   background-color: #ebebeb;
+}
+
+.top-comp {
+  display: flex;
+  flex-direction: row;
+}
+
+
+/* Container to help with styling */
+.select-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+/* Hide default select arrow */
+.select-wrapper select {
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none; /* Removes default dropdown arrow in WebKit browsers */
+  -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+  border: 0px;
+  padding: 10px 40px 10px 10px; /* Padding: right padding is larger to make room for the arrow */
+  font-size: 16px; /* Font size */
+  background-color: transparent; /* Background color */
+  width: 100%; /* Adjust width as needed */
+  box-sizing: border-box; /* Includes padding and border in width */
+}
+
+/* Custom arrow */
+.select-wrapper::after {
+  content: '\25BC'; /* Unicode character for downward arrow */
+  font-size: 9px; /* Arrow size */
+  color: #322625;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensures arrow doesn't interfere with click events */
+}
+
+.select-wrapper select:focus {
+  border-color: #007bff; 
+  outline: none; 
+}
+
+.page-size-comp {
+  padding-right: 20px;
+  border-right: 1px solid #ebebeb;
+}
+
+.search-comp {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 6px;
+  border-right: 1px solid #ebebeb;
+}
+
+.search-comp button {
+  border: 0px;
+  background-color: transparent; 
+}
+
+.filters-comp {
+  display: flex;
+  flex-direction: row;
+}
+
+.toggle-button-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.toggle-button-wrapper button {
+  border: 0px;
+  background-color: transparent; 
+  padding: 10px 40px 10px 10px; 
+}
+
+.toggle-button-wrapper::after {
+  content: '\25BC'; /* Unicode character for downward arrow */
+  font-size: 9px; /* Arrow size */
+  color: #322625;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensures arrow doesn't interfere with click events */
 }

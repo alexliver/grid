@@ -19,10 +19,12 @@ export default function SelectFilter({column, value, onChange, children}) {
     if (filterText === null)
       val = ''
     return (
-      <select value={val} onChange={onChangeInput} >
-        <option value="">all</option>
-        {children}
-      </select>
+      <div className="filter-input-container">
+        <select value={val} onChange={onChangeInput} >
+          <option value="">all</option>
+          {children}
+        </select>
+      </div>
     );
   };
 
@@ -31,10 +33,12 @@ export default function SelectFilter({column, value, onChange, children}) {
   };
 
   return (
-    <div>
-      <button onClick={onClickToggle}>
-        {column}
-      </button>
+    <div className="select-search-comp">
+      <div className="toggle-button-wrapper">
+        <button onClick={onClickToggle}>
+          {column}
+        </button>
+      </div>
       {getInputComponent()}
     </div>
   );
