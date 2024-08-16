@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 function App() {
   return (
     <div >
-      <Link  to="/users">users</Link>
-      <Link  to="/products">products</Link>
+      <ul>
+        <li> <Link  to="/users">users</Link> </li>
+        <li> <Link  to="/products">products</Link> </li>
+      </ul>
     </div>
   );
 }
