@@ -1,34 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Loading from './loading';
 import Search from './search';
-import {fetchData} from '../lib/data';
 import ReactPaginate from 'react-paginate';
+import GridContext from '../context/grid_context';
 
-export default function Page({columns, endpoint, filterAsSearch, children}) {
-  const [data, setData] = useState([]);
-  const [pageSize, setPageSize] = useState(5);
-  const [pageNum, setPageNum] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [total, setTotal] = useState(0);
-  const [filterKey, setFilterKey] = useState(null);
-  const [filterValue, setFilterValue] = useState(null);
-  const [searchText, setSearchText] = useState('');
-
-  const updateData = async () => {
-    setIsLoading(true);
-    const data = await fetchData(endpoint, pageSize, pageNum, filterKey, filterValue, searchText, 
-        filterAsSearch);
-    setData(data[endpoint]);
-    setTotal(data.total);
-    setIsLoading(false);
-    if (data[endpoint].length == 0 )
-      setPageNum(0);
-  };
-
-  useEffect(() => {
-    updateData();
-  }, [pageNum, pageSize, filterKey, filterValue, searchText]);
-
+export default function Page({children}) {
+  const { 
+    data, 
+    updateFilter, 
+    updateSearch, 
+    setPageNum, 
+    setPageSize, 
+    pageSize, 
+    pageNum, 
+    isLoading, 
+    columns, 
+    totalPages, 
+    searchText,
+    filterKey,
+    filterValue,
+  } = useContext(GridContext);
 
   const getTableHeaderComponent = () => {
     const cells = columns.map(col => (
@@ -76,10 +67,9 @@ export default function Page({columns, endpoint, filterAsSearch, children}) {
   };
 
   const getPagingComponent = () => {
-      const onClickPaging = (event) => {
-        setPageNum(event.selected);
-      };
-    const totalPages = Math.ceil(total/pageSize);
+    const onClickPaging = (event) => {
+      setPageNum(event.selected);
+    };
     return (
       <ReactPaginate
         pageCount={totalPages}
@@ -95,28 +85,15 @@ export default function Page({columns, endpoint, filterAsSearch, children}) {
 
   const getFilterComponent = () => {
     const childrenWithProps = React.Children.map(children, child => {
-      const onChangeFilter = (key, value) => {
-        setFilterKey(key);
-        setFilterValue(value);
-        if (value)
-          setSearchText('');
-      };
-      return React.cloneElement(child, { filterKey, filterValue, onChangeFilter });
+      return React.cloneElement(child, { filterKey, filterValue, onChangeFilter: updateFilter });
     });
     return childrenWithProps;
   };
 
   const getSearchComponent = () => {
-    const onChangeSearch = (value) => {
-      setSearchText(value);
-      if (value) {
-        setFilterKey(null);
-        setFilterValue(null);
-      }
-    };
     return (
       <div>
-        <Search searchText={searchText} onChange={onChangeSearch} />
+        <Search searchText={searchText} onChange={updateSearch} />
       </div>
     );
   };

@@ -3,9 +3,10 @@ import Grid from './component/grid';
 import GridSearch from './component/grid_search';
 import TextFilter from './component/text_filter';
 import SelectFilter from './component/select_filter';
+import GridProvider from './context/grid_provider';
+import GridDataFetcher from './context/grid_data_fetcher';
 
 function App() {
-  //repeat the steps for the products page (filters are: Title, Brand, and, Category and tabs are: ALL and Laptops)
   const columns = [
     "title",
     "category",
@@ -21,15 +22,18 @@ function App() {
     "availabilityStatus",
   ];
   return (
-    <Grid columns={columns} endpoint={'products'} filterAsSearch={true}>
-      <GridSearch>
-        <TextFilter column="title" />
-        <TextFilter column="brand" />
-        <SelectFilter column="category">
-          <option value="laptop">laptops</option>
-        </SelectFilter>
-      </GridSearch>
-    </Grid>
+    <GridProvider columns={columns} >
+      <GridDataFetcher endpoint={'products'} filterAsSearch={true} />
+      <Grid>
+        <GridSearch>
+          <TextFilter column="title" />
+          <TextFilter column="brand" />
+          <SelectFilter column="category">
+            <option value="laptop">laptops</option>
+          </SelectFilter>
+        </GridSearch>
+      </Grid>
+    </GridProvider>
   );
 }
 
