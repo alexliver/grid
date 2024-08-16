@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Filter from './filter'
 
 export default function SelectFilter({column, value, onChange, children}) {
-  const [isShown, setIsShown] = useState(false);
   const [filterText, setFilterText] = useState(null);
 
   useEffect(() => {
@@ -9,8 +9,6 @@ export default function SelectFilter({column, value, onChange, children}) {
   }, [value]);
 
   const getInputComponent = () => {
-    if (!isShown)
-      return null;
     const onChangeInput = (event) => {
       onChange(event.target.value);
       setFilterText(event.target.value);
@@ -19,28 +17,17 @@ export default function SelectFilter({column, value, onChange, children}) {
     if (filterText === null)
       val = ''
     return (
-      <div className="filter-input-container">
-        <select value={val} onChange={onChangeInput} >
-          <option value="">all</option>
-          {children}
-        </select>
-      </div>
+      <select value={val} onChange={onChangeInput} >
+        <option value="">all</option>
+        {children}
+      </select>
     );
   };
 
-  const onClickToggle = () => {
-    setIsShown(!isShown);
-  };
-
   return (
-    <div className="select-search-comp">
-      <div className="toggle-button-wrapper">
-        <button onClick={onClickToggle}>
-          {column}
-        </button>
-      </div>
+    <Filter column={column}>
       {getInputComponent()}
-    </div>
+    </Filter>
   );
 }
 

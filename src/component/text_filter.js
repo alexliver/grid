@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Filter from './filter'
 
 export default function TextFilter({column, value, onChange}) {
-  const [isShown, setIsShown] = useState(false);
   const [filterText, setFilterText] = useState(null);
 
   useEffect(() => {
@@ -9,8 +9,6 @@ export default function TextFilter({column, value, onChange}) {
   }, [value]);
 
   const getInputComponent = () => {
-    if (!isShown)
-      return null;
     const onChangeInput = (event) => {
       onChange(event.target.value);
       setFilterText(event.target.value);
@@ -19,25 +17,14 @@ export default function TextFilter({column, value, onChange}) {
     if (filterText === null)
       val = ''
     return (
-      <div className="filter-input-container">
-        <input type="text" value={val} onChange={onChangeInput} />
-      </div>
+      <input type="text" value={val} onChange={onChangeInput} />
     );
   };
 
-  const onClickToggle = () => {
-    setIsShown(!isShown);
-  };
-
   return (
-    <div className="text-search-comp">
-      <div className="toggle-button-wrapper">
-        <button onClick={onClickToggle}>
-          {column}
-        </button>
-      </div>
+    <Filter column={column} >
       {getInputComponent()}
-    </div>
+    </Filter>
   );
 }
 

@@ -17,6 +17,7 @@
 
 body,select {
   margin: 0;
+  padding: 5px;
   font-family: 'Neutra Text', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -136,6 +137,7 @@ tbody tr:hover {
 .top-comp {
   display: flex;
   flex-direction: row;
+  margin-bottom: 50px;
 }
 
 
@@ -217,4 +219,8 @@ tbody tr:hover {
   right: 10px;
   transform: translateY(-50%);
   pointer-events: none; /* Ensures arrow doesn't interfere with click events */
+}
+
+.toggle-button-wrapper.active::after {
+  content: '\25B2'; /* Unicode for upward arrow */
 }
