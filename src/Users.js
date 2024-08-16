@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import Grid from './component/grid';
-import GridSearch from './component/grid_search';
+import GridFilter from './component/grid_filter';
 import TextFilter from './component/text_filter';
 import SelectFilter from './component/select_filter';
 import GridProvider from './context/grid_provider';
@@ -16,7 +15,7 @@ function App() {
     <GridProvider columns={columns} >
       <GridDataFetcher endpoint={'users'} />
       <Grid>
-        <GridSearch >
+        <GridFilter >
           <TextFilter column="firstName" />
           <TextFilter column="email" />
           <TextFilter column="birthDate" />
@@ -24,7 +23,7 @@ function App() {
             <option value="male">male</option>
             <option value="female">female</option>
           </SelectFilter>
-        </GridSearch>
+        </GridFilter>
       </Grid>
     </GridProvider>
   );
