@@ -77,6 +77,8 @@ export default function Page({children}) {
       <ReactPaginate
         pageCount={totalPages}
         forcePage={pageNum}
+        nextLabel="&#8594;"
+        previousLabel="&#8592;"
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
         onPageChange={onClickPaging}

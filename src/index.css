@@ -19,6 +19,7 @@ body,select {
   margin: 0;
   padding: 5px;
   font-family: 'Neutra Text', sans-serif;
+  color: #322625;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,6 +37,7 @@ button {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 50px;
 }
 
 /* Page item styling */
@@ -47,12 +49,12 @@ button {
 .pagination a {
   display: inline-block;
   padding: 8px 16px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  border: 0px ;
   text-decoration: none;
-  color: #007bff;
+  color: #322625;
   background-color: #fff;
   transition: background-color 0.3s, border-color 0.3s;
+  cursor: pointer; 
 }
 
 .pagination a:hover {
@@ -61,9 +63,7 @@ button {
 }
 
 .pagination li.active a {
-  background-color: #008bff;
-  color: #fff;
-  border-color: #007bff;
+  transform: translateY(-50%);
 }
 
 .pagination a.disabled {
