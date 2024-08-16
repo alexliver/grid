@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import {fetchData} from '../lib/data';
 import GridContext from './grid_context';
 
@@ -22,7 +22,7 @@ function GridDataFetcher({ endpoint, filterAsSearch }) {
     setData(data[endpoint]);
     setTotal(data.total);
     setIsLoading(false);
-    if (data[endpoint].length == 0 )
+    if (data[endpoint].length === 0 )
       setPageNum(0);
   };
 

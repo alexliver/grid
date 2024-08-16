@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios  from 'axios';
 
 export async function fetchData(endpoint, pageSize, pageNum, filterKey, filterValue, searchText, 
     filterAsSearch) {
